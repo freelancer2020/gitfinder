@@ -1,26 +1,27 @@
-import React, { useState } from "react";
-import { Paper } from "@mui/material";
+import React from "react";
+import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import LogoIcon from "../../assets/logo.png";
 
-const LogoContainer = styled(Paper)(({ theme }) => ({
-  width: "150px",
-  height: "150px",
+const LogoContainer = styled(Box)(({ theme }) => ({
+  width: "fit-content",
+  height: "fit-content",
+  display: "flex",
+  flexDirection: "column",
   borderRadius: "10px",
   zIndex: 2,
+  background: "transparent",
   [theme.breakpoints.down("sm")]: {
     width: "100px",
     height: "100px",
   },
   [theme.breakpoints.up("md")]: {
-    width: "150px",
-    height: "150px",
+    width: "fit-content",
+    height: "fit-content",
   },
 }));
 
 const Logo: React.FC = () => {
-  const [logoTouch, setLogoTouch] = useState<boolean>(false);
-
   const preventSave = (e: React.MouseEvent) => {
     e.preventDefault();
     return false;
@@ -31,26 +32,13 @@ const Logo: React.FC = () => {
     return false;
   };
 
-  const startTouchLogo = () => {
-    setLogoTouch(true);
-  };
-
-  const moveOut = () => {
-    setLogoTouch(false);
-  };
-
   return (
-    <LogoContainer
-      elevation={logoTouch ? 8 : 4}
-      onContextMenu={preventSave}
-      onMouseMove={startTouchLogo}
-      onMouseOut={moveOut}
-    >
+    <LogoContainer onContextMenu={preventSave}>
       <img
         onDragStart={preventDrag}
         alt="githuber logo"
         src={LogoIcon}
-        style={{ width: "100%", height: "100%", borderRadius: "10px" }}
+        style={{ width: "250px", height: "200px", borderRadius: "10px" }}
       />
     </LogoContainer>
   );

@@ -17,7 +17,7 @@ const TypoBox = styled(Box)(({ theme }) => ({
 }));
 
 const Typo = styled(Typography)(({ theme }) => ({
-  color: "#000080",
+  color: "#1976d2",
   fontFamily: "Audiowide",
   fontSize: "40px",
   [theme.breakpoints.down("sm")]: {
