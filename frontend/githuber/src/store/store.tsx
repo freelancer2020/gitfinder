@@ -3,6 +3,7 @@ import { githubUser } from "./giUserProfile";
 import { githubRepos } from "./githubUserRepos";
 import { reposState } from "./ReposState";
 import { network } from "./network";
+import { contact } from "./contactState";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     githubUserRepo: githubRepos.reducer,
     repoState: reposState.reducer,
     networkState: network.reducer,
+    contactState: contact.reducer,
   },
 });
 

@@ -1,9 +1,11 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "./store/store";
+import React, { useEffect, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "./store/store";
+import { contactAction } from "./store/contactState";
 import { ReposData } from "./store/githubUserRepos";
 import { GitHubUserData } from "./store/giUserProfile";
 import { Box, Typography } from "@mui/material";
+import { styled } from "@mui/system";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
 import RootLeaves from "./Components/Header/Leaves";
@@ -13,7 +15,11 @@ import GridSystem from "./Components/Layouts/Grid";
 import Finder from "./Components/Finder/Finder";
 import Resulter from "./Components/Resulter/Resulter";
 import Repos from "./Components/Repos/Repos";
+import ContactRoot from "./Components/Contact/Contact";
 
+const AppContainer = styled(Box)(({ theme }) => ({
+  backgroundColor: "#ffffff",
+}));
 const App: React.FC = () => {
   const githubUserData = useSelector<RootState, GitHubUserData>(
     (state) => state.githubProfile
@@ -35,11 +41,26 @@ const App: React.FC = () => {
     if (link) window.open(`${link}`, "_blank");
   };
 
+  const contactState = useSelector<RootState, boolean>(
+    (state) => state.contactState.toggle
+  );
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const closeContact = useCallback(() => {
+    dispatch(contactAction.toggleState("0"));
+  }, [dispatch]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", closeContact);
+  }, [closeContact]);
+
   return (
-    <Box sx={{ overflowX: "hidden" }}>
+    <AppContainer sx={{ overflowX: "hidden" }} onClick={closeContact}>
       <RootLeaves />
       <Header />
       <Banner />
+
       <GridSystem
         finder={<Finder />}
         moreInfo={
@@ -92,7 +113,9 @@ const App: React.FC = () => {
         )}
       </GridSystem>
       <Footer />
-    </Box>
+
+      {contactState && <ContactRoot />}
+    </AppContainer>
   );
 };
 
