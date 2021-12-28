@@ -103,7 +103,7 @@ const Footer: React.FC = () => {
           onClick={handleContact}
           variant="body2"
           children="Contact"
-          sx={{ color: "#fff", cursor: "pointer" }}
+          sx={{ color: "#fff", cursor: "pointer", userSelect: "none" }}
         />
       </StackRight>
     </FooterContainer>
